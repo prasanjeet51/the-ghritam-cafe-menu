@@ -37,11 +37,6 @@ Planned next step (Step 2): location → distance-based delivery slab → bill �
 
 Open `index.html` in any browser. No server, install, or build step is needed.
 
-## Publish on GitHub Pages
-
-1. Create a public repo named `the-ghritam-cafe-menu` and upload `index.html` + this `README.md` to the `main` branch.
-2. In the repo: Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main` / `(root)` → Save.
-3. Your live link will be `https://prasanjeet51.github.io/the-ghritam-cafe-menu/`
 
 ## How it was built and tested
 
