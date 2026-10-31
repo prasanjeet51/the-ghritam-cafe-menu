@@ -12,7 +12,7 @@ Same site, same data, new dress. Presentation-layer-only reskin of v5:
 
 A searchable digital menu for a real, family-run cafe in Mithanpura, Muzaffarpur, Bihar — built to reduce dependence on delivery platforms that take around 33% commission.
 
-**Live customer site (Netlify):** https://precious-mochi-ed2190.netlify.app
+
 **GitHub Pages (after you publish this repo):** `https://prasanjeet51.github.io/the-ghritam-cafe-menu/`
 
 ## Changelog
