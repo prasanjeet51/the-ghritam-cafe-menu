@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Ghritam Cafe &amp; Restro — Mithanpura, Muzaffarpur</title>
+<meta name="description" content="The Ghritam Cafe & Restro, Mithanpura, Muzaffarpur. Order online via WhatsApp or book a table. Open daily 10:30 AM – 11:30 PM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Jost', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #3B2A1E; background: #FAF5EC; }
+  a { color: inherit; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulseSoft { 0% { box-shadow: 0 0 0 0 rgba(201,162,39,.45); } 70% { box-shadow: 0 0 0 12px rgba(201,162,39,0); } 100% { box-shadow: 0 0 0 0 rgba(201,162,39,0); } }
+  .topbar { background: #FAF5EC; text-align: center; padding: 18px 16px 14px; animation: fadeUp .6s ease both; border-bottom: 1px solid #EADFC6; }
+  .logo-mark { width: 64px; height: 64px; margin: 0 auto 4px; }
+  .logo-name { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 42px; line-height: 1; margin: 0; }
+  .logo-name small { display: block; font-size: 12px; letter-spacing: 4px; margin-top: 2px; }
+  .logo-name .the { font-size: 13px; letter-spacing: 3px; display: block; margin-bottom: 2px; }
+  .hero { position: relative; }
+  .hero img { width: 100%; height: 380px; object-fit: cover; display: block; animation: heroZoom 16s ease-in-out infinite alternate; }
+  @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .hero-btn { transition: transform .25s ease; } .hero-btn:hover { transform: translateY(-2px); }
+  .photo img { transition: transform .6s ease; } .photo:hover img { transform: scale(1.04); }
+  .how-card, .dish { transition: transform .25s ease, box-shadow .25s ease; } .how-card:hover, .dish:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(43,26,18,.14); }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .hero-overlay { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 20px 22px; color: #fff;
+    background: linear-gradient(transparent, rgba(37,25,16,.88)); text-align: center; }
+  .hero-overlay p { margin: 0 0 14px; font-size: 17px; animation: fadeUp .7s .2s ease both; }
+  .hero-ctas { display: flex; flex-direction: column; gap: 12px; max-width: 380px; margin: 0 auto; }
+  .hero-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 18px; border-radius: 999px; text-decoration: none; text-align: left; }
+  .hero-btn b { font-size: 17px; } .hero-btn small { display: block; font-size: 13px; opacity: .8; margin-top: 2px; }
+  .hero-btn.dark { background: #C9A227; color: #3B2A1E; border: 1px solid #C9A227; animation: pulseSoft 2.8s ease infinite; }
+  .hero-btn.light { background: rgba(255,253,248,.08); color: #FFFDF8; border: 1.5px solid #E4D3A4; }
+  .section { max-width: 900px; margin: 0 auto; padding: 34px 20px; }
+  .kicker { text-align: center; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #A67C1F; margin: 0 0 6px; }
+  .section h2 { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-size: 30px; text-align: center; margin: 0 0 6px; }
+  .section .sub { text-align: center; opacity: .75; margin: 0 0 20px; line-height: 1.55; }
+  .grid2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+  .how-card { display: flex; gap: 14px; align-items: flex-start; background: #FFFDF8; border: 1px solid #EDE0C3; border-radius: 16px; padding: 18px; text-decoration: none; box-shadow: 0 4px 16px rgba(43,26,18,.08); }
+  .how-card .icon { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; background: #F3E4C2; display: grid; place-items: center; font-size: 24px; }
+  .how-card h3 { margin: 0 0 4px; font-size: 17px; } .how-card p { margin: 0; opacity: .75; font-size: 14px; line-height: 1.5; }
+  .photo { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(43,26,18,.1); }
+  .photo img { width: 100%; height: 240px; object-fit: cover; display: block; }
+  .photo figcaption { background: #FFFDF8; padding: 10px 14px; font-size: 14px; opacity: .85; }
+  .grid3 { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 16px; }
+  @media (min-width: 640px) { .grid3 { grid-template-columns: 1fr 1fr 1fr; } }
+  .dish { background: #FFFDF8; border: 1px solid #EDE0C3; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(43,26,18,.08); text-decoration: none; display: block; }
+  .dish-body { padding: 14px 16px 16px; } .dish-body h3 { margin: 0 0 4px; font-size: 16px; }
+  .dish-body p { margin: 0 0 8px; opacity: .75; font-size: 14px; line-height: 1.5; } .dish-body .price { font-weight: 700; color: #A67C1F; }
+  .dish-photo-note { background: #F3E9D2; padding: 12px 14px; font-size: 13px; line-height: 1.5; }
+  .strip { background: #F3E9D2; border-top: 1px solid #E4D3A4; border-bottom: 1px solid #E4D3A4; }
+  .strip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; margin: 0 auto; padding: 22px 20px; }
+  @media (min-width: 640px) { .strip-grid { grid-template-columns: repeat(4, 1fr); } }
+  .feat h3 { margin: 0 0 3px; font-size: 15px; } .feat p { margin: 0; opacity: .75; font-size: 13px; }
+  .more { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center; }
+  @media (min-width: 640px) { .more { grid-template-columns: 1fr 1fr; } }
+  .more h2 { text-align: left; } .more p { line-height: 1.65; opacity: .85; }
+  footer { background: #251910; color: #F3E9D2; }
+  .foot { max-width: 900px; margin: 0 auto; padding: 28px 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 640px) { .foot { grid-template-columns: 1.2fr 1fr 1fr; } }
+  footer a { color: #f3d9a4; } .foot p { line-height: 1.7; margin: 0; }
+  .directions { display: inline-block; margin-top: 10px; border: 1px solid #C9A227; border-radius: 10px; padding: 10px 14px; text-decoration: none; }
+  .copyright { border-top: 1px solid rgba(255,255,255,.15); max-width: 900px; margin: 0 auto; padding: 14px 20px 22px; font-size: 13px; opacity: .75; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .note { max-width: 900px; margin: 0 auto; padding: 16px 20px 24px; font-size: 13px; opacity: .65; line-height: 1.55; }
+  @media (prefers-reduced-motion: reduce) { .hero-btn.dark, .hero img { animation: none !important; } .reveal { opacity: 1; transform: none; transition: none; } }
+
+  .rating-strip{background:#251910;color:#F3E9D2;text-align:center;padding:11px 16px;font-size:14px;}
+  .rating-strip a{color:#f3d9a4;font-weight:700;}
+  .callbtn{display:inline-block;margin-top:10px;background:#C9A227;color:#3B2A1E !important;border:1px solid #C9A227;
+    border-radius:999px;padding:13px 26px;font-size:17px;font-weight:700;text-decoration:none;}
+  #callview{display:none;position:fixed;inset:0;z-index:60;background:#FAF5EC;overflow-y:auto;}
+  #callview .in{max-width:640px;margin:0 auto;padding:26px 20px 40px;text-align:center;color:#3B2A1E;}
+  #callview h2{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:26px;margin:2px 0 4px;}
+  #callview .sub{font-size:13px;opacity:.7;margin:0 0 16px;}
+  .callnum{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:36px;font-weight:700;letter-spacing:1px;margin:4px 0 6px;}
+  .callhint{font-size:14px;opacity:.7;line-height:1.55;margin:0 auto;max-width:420px;}
+  #callnow{display:flex;align-items:center;justify-content:center;text-align:center;background:#C9A227;color:#3B2A1E;
+    text-decoration:none;border-radius:12px;padding:15px;font-size:17px;font-weight:700;margin-top:18px;}
+  #callwa{display:flex;align-items:center;justify-content:center;text-align:center;background:#1faa53;color:#fff;
+    text-decoration:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;margin-top:10px;}
+  #copynum,#callclose{background:#FFFDF8;color:#3B2A1E;border:1.5px solid #E4D3A4;border-radius:10px;
+    padding:12px;font-size:15px;font-weight:600;margin-top:10px;width:100%;cursor:pointer;}
+  /* v6: leaf ornament under centered section headings */
+  .section h2:not(.noorn)::after{content:"";display:block;width:120px;height:20px;margin:12px auto 0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cline x1='6' y1='10' x2='46' y2='10' stroke='%23C9A227' stroke-width='1.5'/%3E%3Cline x1='74' y1='10' x2='114' y2='10' stroke='%23C9A227' stroke-width='1.5'/%3E%3Ccircle cx='6' cy='10' r='2.2' fill='%23C9A227'/%3E%3Ccircle cx='114' cy='10' r='2.2' fill='%23C9A227'/%3E%3Cpath d='M60 3 C64.5 6.5 64.5 13.5 60 17 C55.5 13.5 55.5 6.5 60 3 Z' fill='%23C9A227'/%3E%3Cpath d='M60 4.5 C58.8 8.5 58.8 11.5 60 15.5' stroke='%23FAF5EC' stroke-width='1' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;}
+/* ---- Book a Table modal ---- */
+#booktable{display:none;position:fixed;inset:0;z-index:70;background:rgba(59,42,30,.55);align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 16px;}
+.bt-box{position:relative;background:#FAF5EC;border-radius:18px;max-width:480px;width:100%;padding:28px 26px 24px;margin:auto;color:#3B2A1E;box-shadow:0 24px 60px rgba(0,0,0,.25);}
+.bt-close{position:absolute;top:8px;right:14px;background:none;border:0;font-size:28px;line-height:1;color:#3B2A1E;opacity:.55;cursor:pointer;}
+.bt-box h2{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:30px;margin:0 0 8px;}
+.bt-sub{font-size:14px;line-height:1.55;opacity:.75;margin:0 0 6px;}
+.bt-lab{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin:14px 0 6px;}
+.bt-lab .opt{text-transform:none;letter-spacing:0;}
+.bt-box input,.bt-box textarea{width:100%;box-sizing:border-box;background:#fff;border:1px solid #E3D5BE;border-radius:12px;padding:12px 14px;font-size:16px;color:#3B2A1E;font-family:inherit;}
+.bt-box input:focus,.bt-box textarea:focus{outline:2px solid #C9A227;border-color:#C9A227;}
+.bt-box textarea{resize:vertical;}
+.bt-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.bt-err{display:none;color:#B3261E;font-size:13px;margin:10px 0 0;}
+.bt-go{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:18px;background:#1FA855;color:#fff;border:0;border-radius:999px;padding:15px 18px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;}
+.bt-go:hover{background:#178A45;}
+.bt-note{text-align:center;font-size:12.5px;opacity:.65;margin:12px 0 0;}
+.hero{container-type:inline-size;}
+.hero-cta{position:absolute;display:flex;align-items:center;justify-content:center;gap:.5em;border-radius:999px;text-decoration:none;font-weight:600;font-size:1.55cqw;white-space:nowrap;line-height:1;overflow:hidden;box-sizing:border-box;padding:0 6%;}
+.hero-cta.gold{background:linear-gradient(180deg,#F7C65B 0%,#E9AC3C 48%,#D8942A 100%);color:#3A2A1A;box-shadow:0 3px 14px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.45);}
+.hero-cta.dark{background:linear-gradient(180deg,#2C211A 0%,#171009 100%);color:#FFF8EA;border:1px solid rgba(235,199,128,.55);box-shadow:0 3px 14px rgba(0,0,0,.38);}
+.hero-cta svg{width:1.35em;height:1.35em;flex:none;}
+.hero-cta .arr{font-size:1.15em;font-weight:400;opacity:.9;}
+</style>
+</head>
+<body>
+  <!-- TOP: text logo lockup (THE / Ghritam / CAFÉ & RESTRO) — real logo PNG swaps in here when provided -->
+  <div class="topbar">
+    <p class="logo-name"><span class="the">THE</span>Ghritam<small>CAF&Eacute; &amp; RESTRO</small></p>
+  </div>
+
+  <!-- HERO: real exterior photo -->
+  <header class="hero">
+    <img style="height:auto;aspect-ratio:16/9;animation:none;" src="photos/hero.jpg" alt="The Ghritam Café & Restro — grilled sandwiches, cold coffee and hot coffee">
+    <a class="hero-cta gold" style="left:5.1%;top:82.3%;width:17.6%;height:8.8%;" href="menu.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Order Online</span><span class="arr">&#8594;</span></a>
+    <a class="hero-cta dark" style="left:24.0%;top:82.4%;width:17.2%;height:8.8%;" href="#booktable"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Book a Table</span><span class="arr">&#8594;</span></a>
+</header>
+  <div class="rating-strip">⭐ <b>5.0</b> &nbsp;·&nbsp; <a href="https://share.google/aNjmqLcLZGcqif9Im" target="_blank" rel="noopener">23 Google reviews</a> &nbsp;·&nbsp; Counter prices</div>
+
+  <section class="section reveal">
+    <p class="kicker">Simple ways to enjoy</p>
+    <h2>How It Works</h2>
+    <p class="sub">Quick. Easy. Delicious.</p>
+    <div class="grid2">
+      <a class="how-card" href="menu.html"><span class="icon">&#128172;</span><span><h3>Order Online &rsaquo;</h3><p>Browse our menu and place your order directly on WhatsApp.</p></span></a>
+      <a class="how-card" href="#booktable"><span class="icon">&#128197;</span><span><h3>Book a Table &rsaquo;</h3><p>Message us on WhatsApp to reserve your table and enjoy a great dining experience.</p></span></a>
+    </div>
+  </section>
+
+  <section class="section reveal" style="padding-top:0;">
+    <p class="kicker">Inside the cafe</p>
+    <h2>Ambience, as it actually is</h2>
+    <p class="sub">Step inside our Mithanpura caf&eacute;.</p>
+    <div class="grid2">
+      
+      
+    
+      <figure class="photo" style="margin:0;"><img src="photos/counter.jpg" alt="The coffee counter — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>The coffee counter</figcaption></figure>
+      <figure class="photo" style="margin:0;"><img src="photos/seating.jpg" alt="Seating by the wall art — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>Seating by the wall art</figcaption></figure>
+      <figure class="photo" style="margin:0;"><img src="photos/wall.jpg" alt="The cozy wall nook — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>The cozy wall nook</figcaption></figure>
+      <figure class="photo" style="margin:0;"><img src="photos/interior.jpg" alt="Inside the café — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>Inside the café</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section reveal" style="padding-top:0;">
+    <p class="kicker">Our recommendation</p>
+    <h2 class="noorn" style="text-align:left;">Today&rsquo;s Special &#11088;</h2>
+    <p class="sub" style="text-align:left;">Handpicked favourites, just for today. <a href="menu.html">See All Specials &rarr;</a></p>
+    <div class="grid3">
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Creamy Cheese Pasta</h3><p>Rich, creamy and irresistibly delicious.</p><span class="price">&#8377;150</span></div><div class="dish-photo-note">Dish photo needed — send a photo of this pasta and it goes here.</div></a>
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Spicy Chicken Loaded Fries</h3><p>A perfect blend of spice and flavour.</p><span class="price">&#8377;180</span></div><div class="dish-photo-note">Dish photo needed — send a photo of these fries and it goes here.</div></a>
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Nutella Hazelnut Shake</h3><p>A chocolatey treat for every mood.</p><span class="price">&#8377;160</span></div><div class="dish-photo-note">Dish photo needed — send a photo of this shake and it goes here.</div></a>
+    </div>
+  </section>
+
+  <section class="section reveal" style="padding-top:0;">
+    <p class="kicker">From the counter</p>
+    <h2>Fresh from the counter</h2>
+    <p class="sub">The cafe&rsquo;s own photos — labelled as what they actually are.</p>
+    <div class="grid3">
+      <figure class="photo" style="margin:0;"><img src="photos/counter.jpg" alt="The coffee counter — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>The coffee counter — where every cup starts</figcaption></figure>
+      <figure class="photo" style="margin:0;"><img src="photos/interior.jpg" alt="Inside the café — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>Inside the café</figcaption></figure>
+      <figure class="photo" style="margin:0;"><img src="photos/wall.jpg" alt="The cozy corners — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>The cozy corners</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="strip reveal"><div class="strip-grid">
+    <div class="feat"><h3>Fresh Ingredients</h3><p>Quality you can taste</p></div>
+    <div class="feat"><h3>Great Coffee</h3><p>Brewed with love</p></div>
+    <div class="feat"><h3>Cozy Ambience</h3><p>Perfect for every occasion</p></div>
+    <div class="feat"><h3>Memorable Moments</h3><p>Good food brings people together</p></div>
+  </div></div>
+
+  <section class="section reveal">
+    <div class="more">
+      <figure class="photo" style="margin:0;"><img src="photos/seating.jpg" alt="Seating — The Ghritam Café & Restro, Mithanpura" loading="lazy"><figcaption>Seating — marble tables, warm light</figcaption></figure>
+      <div>
+        <p class="kicker" style="text-align:left;">More than a caf&eacute;</p>
+        <h2 class="noorn">A Place for Good Food and Better Moments</h2>
+        <p>At Ghritam Caf&eacute; &amp; Restro, we believe great food brings people together. From delicious bites to comforting coffee, we create a warm space for conversations, celebrations and everyday moments.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <div><p style="font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:28px;">Ghritam<small style="display:block;font-size:12px;letter-spacing:3px;">CAF&Eacute; &amp; RESTRO</small></p></div>
+      <div><p>&#128205; Miscot Ln, near The Park hotel, Mahammadpur Kazi, Mithanpura, Muzaffarpur, Bihar 842002<br><a class="callbtn" href="tel:+919069003133">📞 Call: 90690 03133</a><br>&#128337; Open daily: 10:30 AM &ndash; 11:30 PM</p></div>
+      <div><a class="directions" href="https://www.google.com/maps/dir/?api=1&destination=THE%20GHRITAM%20CAFE%20MITHANPURA%2C%20Miscot%20Ln%2C%20near%20The%20Park%20hotel%2C%20Mithanpura%2C%20Muzaffarpur%2C%20Bihar%20842002">Get Directions on Google Maps &rarr;</a><p style="margin-top:12px;">Follow Us<br><a href="https://www.instagram.com/the_ghritam" aria-label="Follow us on Instagram" style="display:inline-block;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f3d9a4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></p></div>
+    </div>
+    <div class="copyright"><span>&copy; 2026 Ghritam Caf&eacute; &amp; Restro. All Rights Reserved.</span><span>Good Food &bull; Great Coffee &bull; Better Moments</span></div>
+  </footer>
+
+  <p class="note">Live homepage (v4, animated). Page 1 — all introduction, address, directions, phone, and Instagram details live here. Page 2 (menu.html) is a separate clean file with no repeated intro or footer. Today&rsquo;s Special prices checked against the live menu: Creamy Cheese Pasta &#8377;150, Spicy Chicken Loaded Fries &#8377;180, Nutella Hazelnut Shake &#8377;160. The three Today&rsquo;s Special dish photos are deliberately left as notes, not filled with other dishes&rsquo; photos — send those three photos and they will replace the notes. Logo lockup is recreated in text for crispness; the exact logo also appears in the hero storefront photo itself. If you have a clean logo PNG, send it and I will swap it in exactly.</p>
+
+<!-- BOOK A TABLE modal: name/date/time/guests/request -> prefilled WhatsApp. Table confirmed only on cafe reply. -->
+<div id="booktable" role="dialog" aria-modal="true" aria-label="Book a table">
+  <div class="bt-box">
+    <button class="bt-close" aria-label="Close">&times;</button>
+    <h2><span aria-hidden="true">&#128197;</span> Book a Table</h2>
+    <p class="bt-sub">Share your details and we&rsquo;ll open WhatsApp with your request ready to send. Our team will reply to confirm availability.</p>
+    <div class="bt-field"><span class="bt-lab">Your name</span><input id="bt-name" type="text" inputmode="text" autocomplete="name" placeholder="e.g. Aarav Kumar"></div>
+    <div class="bt-row">
+      <div class="bt-field"><span class="bt-lab">Date</span><input id="bt-date" type="date" lang="en-IN"></div>
+      <div class="bt-field"><span class="bt-lab">Time</span><input id="bt-time" type="time" min="10:30" max="23:30" lang="en-IN"></div>
+    </div>
+    <div class="bt-field"><span class="bt-lab">Guests</span><input id="bt-guests" type="number" value="2" min="1" max="40"></div>
+    <div class="bt-field"><span class="bt-lab">Special request <span class="opt">(optional)</span></span><textarea id="bt-req" rows="3" placeholder="Birthday, window seat, wheelchair access&hellip;"></textarea></div>
+    <p class="bt-err" id="bt-err"></p>
+    <button id="bt-go" class="bt-go"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Continue on WhatsApp</button>
+    <p class="bt-note">Your table is confirmed only once the caf&eacute; replies.</p>
+  </div>
+</div>
+<div id="callview" role="dialog" aria-modal="true" aria-label="Call The Ghritam Cafe">
+  <div class="in">
+    <h2>Call the cafe</h2>
+    <p class="sub">The Ghritam Cafe &middot; Mithanpura</p>
+    <p class="callnum">90690 03133</p>
+    <p class="callhint">If the dialer didn&apos;t open, copy the number and dial it from your phone app — or message us on WhatsApp instead.</p>
+    <a id="callnow" href="tel:+919069003133">Call now</a>
+    <button id="copynum">Copy number</button>
+    <a id="callwa" href="https://wa.me/919069003133" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <button id="callclose">Back</button>
+  </div>
+</div>
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+<script>
+/* Phone links: try the dialer directly; if the in-app viewer swallows the
+   tel: hand-off, show a call panel with the number, copy button and WhatsApp
+   fallback instead of a dead tap. */
+(function(){
+  function openCall(){
+    document.getElementById("callview").style.display = "block";
+    document.body.style.overflow = "hidden";
+  }
+  function closeCall(){
+    document.getElementById("callview").style.display = "none";
+    document.body.style.overflow = "";
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="tel:"]:not(#callnow)'), function(a){
+    a.addEventListener("click", function(e){
+      e.preventDefault();
+      var tookOver = false;
+      function mark(){ tookOver = true; }
+      document.addEventListener("visibilitychange", mark);
+      window.addEventListener("pagehide", mark);
+      window.location.href = a.getAttribute("href");
+      setTimeout(function(){
+        document.removeEventListener("visibilitychange", mark);
+        window.removeEventListener("pagehide", mark);
+        if (!tookOver && !document.hidden) openCall();
+      }, 900);
+    });
+  });
+  document.getElementById("callclose").addEventListener("click", closeCall);
+  document.getElementById("copynum").addEventListener("click", function(){
+    var btn = this;
+    function done(){ btn.textContent = "Number copied \u2713";
+      setTimeout(function(){ btn.textContent = "Copy number"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText("+919069003133").then(done, function(){});
+    } else {
+      var ta = document.createElement("textarea"); ta.value = "+919069003133";
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(err) {}
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+<script>
+/* Book a Table: open modal from any "Book a Table" button, validate the form,
+   then open WhatsApp with the booking request prefilled. The table is only
+   confirmed when the cafe replies — the site never claims otherwise. */
+(function(){
+  var modal = document.getElementById("booktable");
+  function openBook(e){ if(e) e.preventDefault(); if(!timeEl.value) timeEl.value = nowHM(); modal.style.display = "flex"; document.body.style.overflow = "hidden"; }
+  function closeBook(){ modal.style.display = "none"; document.body.style.overflow = ""; }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#booktable"]'), function(a){
+    a.addEventListener("click", openBook);
+  });
+  modal.querySelector(".bt-close").addEventListener("click", closeBook);
+  modal.addEventListener("click", function(e){ if(e.target === modal) closeBook(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && modal.style.display === "flex") closeBook(); });
+  var dateEl = document.getElementById("bt-date");
+  var _t = new Date();
+  var _p = function(n){ return String(n).padStart(2, "0"); };
+  var todayIso = _t.getFullYear() + "-" + _p(_t.getMonth() + 1) + "-" + _p(_t.getDate()); /* local date, not UTC */
+  dateEl.min = todayIso; /* no past dates */
+  dateEl.value = todayIso; /* prefill today — tap the field to pick another date from the calendar */
+  var timeEl = document.getElementById("bt-time");
+  function nowHM(){ var n = new Date(); return _p(n.getHours()) + ":" + _p(n.getMinutes()); }
+  function fmt12(t){ var p = t.split(":"); var h = +p[0]; var ap = h >= 12 ? "PM" : "AM"; h = h % 12; if(h === 0) h = 12; return h + ":" + p[1] + " " + ap; }
+  /* tapping anywhere inside the date/time field opens the native picker */
+  [dateEl, timeEl].forEach(function(el){
+    el.addEventListener("click", function(){ try { el.showPicker(); } catch(e){} });
+  });
+  /* fallback for in-app viewers that don't focus text inputs on tap: an explicit
+     focus inside the user's own tap gesture is allowed to summon the keyboard */
+  Array.prototype.forEach.call(modal.querySelectorAll('input[type="text"], textarea'), function(el){
+    el.addEventListener("touchend", function(){ try { el.focus({preventScroll:true}); } catch(e){} }, {passive:true});
+  });
+  function fail(msg){ var err = document.getElementById("bt-err"); err.textContent = msg; err.style.display = "block"; }
+  document.getElementById("bt-go").addEventListener("click", function(){
+    document.getElementById("bt-err").style.display = "none";
+    var name = document.getElementById("bt-name").value.trim();
+    var date = dateEl.value;
+    var time = document.getElementById("bt-time").value;
+    var guests = document.getElementById("bt-guests").value.trim();
+    var req = document.getElementById("bt-req").value.trim();
+    if(!name) return fail("Please add your name.");
+    if(!date) return fail("Please pick a date.");
+    if(!time) return fail("Please pick a time.");
+    if(time < "10:30" || time > "23:30") return fail("The cafe takes table bookings between 10:30 AM and 11:30 PM.");
+    if(!guests || +guests < 1) return fail("Please add the number of guests.");
+    var p = date.split("-");
+    var lines = ["Hello The Ghritam Cafe! I would like to book a table.",
+      "Name: " + name,
+      "Date: " + p[2] + "-" + p[1] + "-" + p[0],
+      "Time: " + fmt12(time),
+      "Guests: " + guests];
+    if(req) lines.push("Special request: " + req);
+    window.open("https://wa.me/919069003133?text=" + encodeURIComponent(lines.join("\n")), "_blank");
+    closeBook();
+  });
+})();
+</script>
+<script>
+/* TODAY'S SPECIAL — live from Google Sheets (no HTML edits needed).
+   Setup (2 min, once): create a Google Sheet with columns: name | price | desc
+   (3 rows, first row = header), then File > Share > Publish to web, and paste
+   the sheet ID between the quotes below. Whoever has the sheet link can change
+   the specials from their phone — the live site picks it up automatically.
+   Until a sheet ID is set (or if the sheet ever fails to load), the page keeps
+   showing the hardcoded specials below. The site never breaks. */
+var SPECIALS_SHEET_ID = "";
+(function(){
+  if(!SPECIALS_SHEET_ID) return;
+  var url = "https://docs.google.com/spreadsheets/d/" + SPECIALS_SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Specials";
+  function parseCSV(t){
+    var rows=[], row=[], val="", q=false;
+    for(var i=0;i<t.length;i++){
+      var c=t[i];
+      if(q){ if(c=='"'){ if(t[i+1]=='"'){val+='"';i++;} else q=false; } else val+=c; }
+      else if(c=='"') q=true;
+      else if(c==','){row.push(val);val="";}
+      else if(c=='\n'||c=='\r'){ if(val!==""||row.length){row.push(val);rows.push(row);} row=[];val=""; if(c=='\r'&&t[i+1]=='\n')i++; }
+      else val+=c;
+    }
+    if(val!==""||row.length){row.push(val);rows.push(row);}
+    return rows;
+  }
+  fetch(url).then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(t){
+    var rows = parseCSV(t).filter(function(r){ return r.length>=2 && r[0].trim() && r[0].trim().toLowerCase()!=="name"; });
+    if(!rows.length) return;
+    var cards = document.querySelectorAll('.grid3 .dish');
+    rows.slice(0,3).forEach(function(r, i){
+      if(!cards[i]) return;
+      var h3=cards[i].querySelector('h3'), p=cards[i].querySelector('p'), pr=cards[i].querySelector('.price');
+      if(h3 && r[0]) h3.textContent=r[0].trim();
+      if(pr && r[1]) pr.textContent="\u20B9"+r[1].trim().replace(/^\u20B9/,"");
+      if(p && r[2]) p.textContent=r[2].trim();
+    });
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
