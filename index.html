@@ -168,9 +168,9 @@
     <h2 class="noorn" style="text-align:left;">Today&rsquo;s Special &#11088;</h2>
     <p class="sub" style="text-align:left;">Handpicked favourites, just for today. <a href="menu.html">See All Specials &rarr;</a></p>
     <div class="grid3">
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Creamy Cheese Pasta</h3><p>Rich, creamy and irresistibly delicious.</p><span class="price">&#8377;150</span></div><img class="dish-photo" src="Photos/dishes/creamy-cheese-pasta.webp" alt="Creamy Cheese Pasta" loading="lazy" onerror="this.style.display='none'"></a>
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Spicy Chicken Loaded Fries</h3><p>A perfect blend of spice and flavour.</p><span class="price">&#8377;180</span></div><img class="dish-photo" src="Photos/dishes/spicy-chicken-loaded-fries.webp" alt="Spicy Chicken Loaded Fries" loading="lazy" onerror="this.style.display='none'"></a>
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Nutella Hazelnut Shake</h3><p>A chocolatey treat for every mood.</p><span class="price">&#8377;160</span></div><img class="dish-photo" src="Photos/dishes/nutella-hazelnut-shake.webp" alt="Nutella Hazelnut Shake" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="dish" href="menu.html#dish-creamy-cheese-pasta"><div class="dish-body"><h3>Creamy Cheese Pasta</h3><p>Rich, creamy and irresistibly delicious.</p><span class="price">&#8377;150</span></div><img class="dish-photo" src="Photos/dishes/creamy-cheese-pasta.webp" alt="Creamy Cheese Pasta" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="dish" href="menu.html#dish-spicy-chicken-loaded-fries"><div class="dish-body"><h3>Spicy Chicken Loaded Fries</h3><p>A perfect blend of spice and flavour.</p><span class="price">&#8377;180</span></div><img class="dish-photo" src="Photos/dishes/spicy-chicken-loaded-fries.webp" alt="Spicy Chicken Loaded Fries" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="dish" href="menu.html#dish-nutella-hazelnut-shake"><div class="dish-body"><h3>Nutella Hazelnut Shake</h3><p>A chocolatey treat for every mood.</p><span class="price">&#8377;160</span></div><img class="dish-photo" src="Photos/dishes/nutella-hazelnut-shake.webp" alt="Nutella Hazelnut Shake" loading="lazy" onerror="this.style.display='none'"></a>
     </div>
   </section>
 
@@ -414,6 +414,7 @@ function dishSlug(n){ return n.trim().toLowerCase().normalize("NFD").replace(/[\
       if(h3 && r[0]) h3.textContent=r[0].trim();
       var img=cards[i].querySelector('.dish-photo');
       if(img && r[0]){ img.src="Photos/dishes/"+dishSlug(r[0])+".webp"; img.alt=r[0].trim(); img.style.display=""; }
+      if(r[0]){ cards[i].href="menu.html#dish-"+dishSlug(r[0]); }
       if(pr && r[1]) pr.textContent="\u20B9"+r[1].trim().replace(/^\u20B9/,"");
       if(p && r[2]) p.textContent=r[2].trim();
     });

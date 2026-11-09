@@ -132,6 +132,7 @@
   @media (min-width:1020px){.grid{grid-template-columns:repeat(4,1fr)}}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:13px;display:flex;flex-direction:column;gap:7px;box-shadow:var(--shadow)}
+  .card.hl{outline:3px solid #c9a227;outline-offset:2px;box-shadow:0 0 0 6px rgba(201,162,39,.25), var(--shadow)}
   .card .top{display:flex;align-items:center;gap:8px;min-height:16px}
   .mark{width:15px;height:15px;flex:none;border:2px solid;border-radius:3px;
     display:inline-flex;align-items:center;justify-content:center;background:var(--surface)}
@@ -508,6 +509,7 @@ var searchEl = document.getElementById("search");
 var clearEl = document.getElementById("clearsearch");
 
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function dishSlug(n){ return n.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""); }
 function findItem(name){ for (var i=0;i<ITEMS.length;i++) if (ITEMS[i].name===name) return ITEMS[i]; return null; }
 
 function renderChips(){
@@ -566,7 +568,7 @@ function cardHTML(it){
   } else {
     ctrl = '<div class="stepper"><button data-dec="' + esc(it.name) + '" aria-label="Remove one">−</button><span>' + qty + '</span><button data-inc="' + esc(it.name) + '" aria-label="Add one">+</button></div>';
   }
-  return '<div class="card">' + photoHTML(it) + '<div class="top"><span class="mark ' + (it.veg ? "veg" : "nonveg") + '" title="' + (it.veg ? "Veg" : "Non-veg") + '"></span>' +
+  return '<div class="card" id="dish-' + dishSlug(it.name) + '">' + photoHTML(it) + '<div class="top"><span class="mark ' + (it.veg ? "veg" : "nonveg") + '" title="' + (it.veg ? "Veg" : "Non-veg") + '"></span>' +
     (it.best ? '<span class="best">★ Bestseller</span>' : '') + (addons.length ? '<span class="cust">Customisable</span>' : '') + '</div>' +
     '<div class="nm">' + esc(it.name) + '</div>' +
     '<div class="pr">₹' + it.price + '</div>' + ctrl + '</div>';
@@ -849,6 +851,31 @@ document.getElementById("copynum").addEventListener("click", function(){
 
 renderChips();
 renderMenu();
+/* Deep link: menu.html#dish-<slug> (e.g. from a Today's Special card) scrolls
+   straight to that dish and rings it in gold for a few seconds. The menu is
+   rendered by JS, so the browser's own anchor jump can't land on its own —
+   this runs after render. If a category/search filter is hiding the dish, the
+   filter is cleared first so the dish is always reachable. */
+function jumpToDish(){
+  var m = /^#dish-(.+)$/.exec(location.hash || "");
+  if(!m) return;
+  var id = "dish-" + m[1];
+  if(!document.getElementById(id)){
+    activeCat = "All"; vegOnly = false;
+    if(searchEl){ searchEl.value = ""; }
+    if(clearEl){ clearEl.style.display = "none"; }
+    renderChips(); renderMenu();
+  }
+  var el = document.getElementById(id);
+  if(!el) return;
+  setTimeout(function(){
+    el.scrollIntoView({behavior:"smooth", block:"center"});
+    el.classList.add("hl");
+    setTimeout(function(){ el.classList.remove("hl"); }, 3000);
+  }, 150);
+}
+window.addEventListener("hashchange", jumpToDish);
+jumpToDish();
 </script>
 </body>
 </html>
