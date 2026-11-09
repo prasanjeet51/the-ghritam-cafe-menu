@@ -153,6 +153,19 @@
   #empty .big{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:20px;color:var(--ink-soft);margin-bottom:6px}
 
   /* ---------- Cart bar & view ---------- */
+  #recos{display:none;margin:18px 0 6px}
+#recos h3{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:19px;margin:0 0 2px}
+#recos .recosub{font-size:13px;color:var(--muted);margin:0 0 10px}
+.recotabs{display:flex;gap:8px;margin-bottom:12px}
+.recotab{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600;cursor:pointer}
+.recotab[aria-pressed="true"]{background:var(--brand-ink);color:#fff;border-color:var(--brand-ink)}
+.recostrip{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.recocard{flex:0 0 150px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.recocard .ph,.recocard .mono{margin:-12px -12px 2px;border-radius:13px 13px 0 0;overflow:hidden;aspect-ratio:16/10;background:var(--surface2)}
+.recocard .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.recocard .mono{display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:30px;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.25)}
+.recocard .nm{font-size:14px;font-weight:600;line-height:1.3}
+.recocard .pr{font-size:14.5px;font-weight:700;color:var(--price)}
   #cartbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;
     background:var(--brand);color:var(--brand-ink);
     padding:12px 16px calc(12px + env(safe-area-inset-bottom));
@@ -288,6 +301,16 @@
     <h2>Your Order</h2>
     <p class="sub">The Ghritam Cafe · Mithanpura</p>
     <div id="cartlines"></div>
+<div id="recos">
+  <h3>Complete your meal with</h3>
+  <p class="recosub">Popular picks, drinks and desserts — tap + to add.</p>
+  <div class="recotabs" id="recotabs" role="group" aria-label="Recommendations">
+    <button class="recotab" data-reco="Popular" aria-pressed="true">Popular</button>
+    <button class="recotab" data-reco="Beverages" aria-pressed="false">Beverages</button>
+    <button class="recotab" data-reco="Desserts" aria-pressed="false">Desserts</button>
+  </div>
+  <div class="recostrip" id="recostrip"></div>
+</div>
     <div id="cartfoot">
       <div class="totrow"><span>Total</span><span id="carttotal"></span></div>
       <p class="cartnote">Tapping below opens WhatsApp with your order typed out. The cafe will confirm it, add the delivery charge for your location and send a UPI payment link for the exact bill amount — direct orders are prepaid. For cash on delivery, please order on Swiggy instead.</p>
@@ -432,6 +455,7 @@ function addItem(name){
   var it = findItem(name); if(!it) return;
   cart[name] = {price: it.price, qty: 1};
   renderMenu(); renderBar();
+  if (document.getElementById("cartview").style.display === "block") renderCart();
 }
 function chg(name, d){
   if (!cart[name]) { if (d>0) addItem(name); return; }
@@ -446,6 +470,36 @@ document.addEventListener("click", function(e){
   var d = e.target.closest("[data-dec]"); if (d){ chg(d.getAttribute("data-dec"), -1); return; }
 });
 
+var recoTab = "Popular";
+var BEV_CATS = ["Thick Shake","Frappe","Bold Series","Chilled Caffeine","Mocktail","Chilled Tea House"];
+function recoItems(){
+  var pool = ITEMS.filter(function(it){
+    if (recoTab === "Popular") return it.best;
+    if (recoTab === "Beverages") return BEV_CATS.indexOf(it.cat) !== -1;
+    return it.cat === "Dessert";
+  });
+  return pool.filter(function(it){ return !cart[it.name]; });
+}
+function recoCardHTML(it){
+  return '<div class="recocard">' + photoHTML(it) +
+    '<span class="mark ' + (it.veg ? "veg" : "nonveg") + '" title="' + (it.veg ? "Veg" : "Non-veg") + '"></span>' +
+    '<div class="nm">' + esc(it.name) + '</div>' +
+    '<div class="pr">\u20b9' + it.price + '</div>' +
+    '<button class="addbtn" data-add="' + esc(it.name) + '">ADD +</button></div>';
+}
+function renderRecos(){
+  var strip = document.getElementById("recostrip");
+  var items = recoItems();
+  Array.prototype.forEach.call(document.querySelectorAll("#recotabs .recotab"), function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-reco") === recoTab);
+  });
+  strip.innerHTML = items.length ? items.map(recoCardHTML).join("")
+    : '<p style="font-size:13.5px;color:var(--muted)">Nothing new here \u2014 everything in this tab is already in your cart.</p>';
+}
+document.getElementById("recotabs").addEventListener("click", function(e){
+  var b = e.target.closest(".recotab"); if(!b) return;
+  recoTab = b.getAttribute("data-reco"); renderRecos();
+});
 function renderCart(){
   var tot = totals();
   var keys = Object.keys(cart);
@@ -453,9 +507,11 @@ function renderCart(){
   if (!keys.length){
     linesEl.innerHTML = '<div id="cartempty">Your cart is empty.<br>Go back and add something tasty.</div>';
     document.getElementById("cartfoot").style.display = "none";
+    document.getElementById("recos").style.display = "none";
     return;
   }
   document.getElementById("cartfoot").style.display = "block";
+  document.getElementById("recos").style.display = "block"; renderRecos();
   linesEl.innerHTML = keys.map(function(k){
     var c = cart[k];
     return '<div class="cline"><div class="nm">' + esc(k) + '<small>₹' + c.price + ' each</small></div>' +
