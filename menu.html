@@ -166,6 +166,23 @@
 .recocard .mono{display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:30px;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.25)}
 .recocard .nm{font-size:14px;font-weight:600;line-height:1.3}
 .recocard .pr{font-size:14.5px;font-weight:700;color:var(--price)}
+  /* ---------- Add-ons / customise sheet ---------- */
+  .cust{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:var(--price);text-transform:uppercase}
+  #customise{display:none;position:fixed;inset:0;z-index:60;background:rgba(59,42,30,.55);
+    align-items:center;justify-content:center;overflow-y:auto;padding:24px 16px}
+  #customise .in{position:relative;background:var(--bg);color:var(--ink);border-radius:18px;
+    max-width:480px;width:100%;padding:24px 22px 22px;margin:auto;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+  #customise h2{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-size:22px;margin:0 0 4px}
+  #customise .sub{font-size:13px;color:var(--muted);margin:0 0 8px}
+  #custclose{position:absolute;top:8px;right:14px;background:none;border:0;font-size:26px;line-height:1;
+    color:var(--ink);opacity:.55;cursor:pointer}
+  .custopt{display:flex;align-items:center;gap:10px;padding:12px 2px;border-bottom:1px solid var(--line);
+    cursor:pointer;font-size:15px}
+  .custopt input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+  .custopt .pr{margin-left:auto;font-weight:700;color:var(--price);white-space:nowrap}
+  #custadd{display:flex;align-items:center;justify-content:center;width:100%;margin-top:16px;
+    background:var(--wa);color:var(--wa-ink);border:0;border-radius:11px;padding:15px;
+    font-size:16.5px;font-weight:700;cursor:pointer}
   #cartbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;
     background:var(--brand);color:var(--brand-ink);
     padding:12px 16px calc(12px + env(safe-area-inset-bottom));
@@ -323,6 +340,17 @@
   </div>
 </div>
 
+<div id="customise" role="dialog" aria-modal="true" aria-label="Customise item">
+  <div class="in">
+    <button id="custclose" aria-label="Close">&times;</button>
+    <h2 id="custname"></h2>
+    <p class="sub" id="custbase"></p>
+    <div id="custopts"></div>
+    <div class="totrow"><span>Total</span><span id="custtotal"></span></div>
+    <button id="custadd">Add to Cart</button>
+  </div>
+</div>
+
 <div id="callview" role="dialog" aria-modal="true" aria-label="Call The Ghritam Cafe">
   <div class="in">
     <h2>Call the cafe</h2>
@@ -404,13 +432,43 @@ function matches(it){
   return true;
 }
 
+/* ---------- Add-ons (reference prices from local Muzaffarpur cafes on Zomato,
+   checked 9 Nov 2026: extra cheese slice ₹35 and dips ₹25 from The Burger
+   Company; pizza extra cheese ₹50 / veg topping ₹35 / non-veg topping ₹50
+   from Domino's Maripur. These are reference prices, not the cafe's own
+   counter prices — change them here and the whole menu follows. ---------- */
+var DIPS = [{name:"Cheesy Dip",price:25,veg:true},{name:"Peri Peri Dip",price:25,veg:true},{name:"Tandoori Dip",price:25,veg:true},{name:"African Spice Dip",price:25,veg:true}];
+var PIZZA_TOPPINGS = [{name:"Extra Cheese",price:50,veg:true},{name:"Paneer",price:35,veg:true},{name:"Onion",price:35,veg:true},{name:"Capsicum",price:35,veg:true},{name:"Jalapeno",price:35,veg:true},{name:"Chicken Tikka",price:50,veg:false},{name:"Chicken Sausage",price:50,veg:false}];
+function addonsFor(it){
+  if (it.cat === "Burger Bar" || it.cat === "Sandwich") return [{name:"Extra Cheese Slice",price:35,veg:true}];
+  if (it.cat === "Pizza") return PIZZA_TOPPINGS.filter(function(o){ return !it.veg || o.veg; });
+  if (it.cat === "Tit-Bits" && /Fries|Nachos|Sticks|Finger/.test(it.name)) return DIPS;
+  return [];
+}
+function cartQty(name){
+  var n = 0;
+  Object.keys(cart).forEach(function(k){ if (k === name || k.indexOf(name + " | ") === 0) n += cart[k].qty; });
+  return n;
+}
+function inCart(name){ return cartQty(name) > 0; }
+function lineUnit(c){ return c.price + (c.addonTotal || 0); }
+
 function cardHTML(it){
-  var qty = cart[it.name] ? cart[it.name].qty : 0;
-  var ctrl = qty === 0
-    ? '<button class="addbtn" data-add="' + esc(it.name) + '">ADD +</button>'
-    : '<div class="stepper"><button data-dec="' + esc(it.name) + '" aria-label="Remove one">−</button><span>' + qty + '</span><button data-inc="' + esc(it.name) + '" aria-label="Add one">+</button></div>';
+  var addons = addonsFor(it);
+  var qty = cartQty(it.name);
+  var ctrl;
+  if (addons.length){
+    /* Customisable items always open the add-on sheet — even when already in
+       the cart — because the same item can sit in the cart with different
+       add-on combinations. The button shows how many are already in. */
+    ctrl = '<button class="addbtn" data-custom="' + esc(it.name) + '">ADD +' + (qty ? ' \u00b7 ' + qty + ' in cart' : '') + '</button>';
+  } else if (qty === 0){
+    ctrl = '<button class="addbtn" data-add="' + esc(it.name) + '">ADD +</button>';
+  } else {
+    ctrl = '<div class="stepper"><button data-dec="' + esc(it.name) + '" aria-label="Remove one">−</button><span>' + qty + '</span><button data-inc="' + esc(it.name) + '" aria-label="Add one">+</button></div>';
+  }
   return '<div class="card">' + photoHTML(it) + '<div class="top"><span class="mark ' + (it.veg ? "veg" : "nonveg") + '" title="' + (it.veg ? "Veg" : "Non-veg") + '"></span>' +
-    (it.best ? '<span class="best">★ Bestseller</span>' : '') + '</div>' +
+    (it.best ? '<span class="best">★ Bestseller</span>' : '') + (addons.length ? '<span class="cust">Customisable</span>' : '') + '</div>' +
     '<div class="nm">' + esc(it.name) + '</div>' +
     '<div class="pr">₹' + it.price + '</div>' + ctrl + '</div>';
 }
@@ -441,7 +499,7 @@ function renderMenu(){
 
 function totals(){
   var n=0, t=0;
-  Object.keys(cart).forEach(function(k){ n += cart[k].qty; t += cart[k].qty * cart[k].price; });
+  Object.keys(cart).forEach(function(k){ n += cart[k].qty; t += cart[k].qty * lineUnit(cart[k]); });
   return {n:n, t:t};
 }
 function renderBar(){
@@ -453,7 +511,7 @@ function renderBar(){
 }
 function addItem(name){
   var it = findItem(name); if(!it) return;
-  cart[name] = {price: it.price, qty: 1};
+  cart[name] = {price: it.price, qty: 1, addons: [], addonTotal: 0};
   renderMenu(); renderBar();
   if (document.getElementById("cartview").style.display === "block") renderCart();
 }
@@ -466,6 +524,7 @@ function chg(name, d){
 }
 document.addEventListener("click", function(e){
   var a = e.target.closest("[data-add]"); if (a){ addItem(a.getAttribute("data-add")); return; }
+  var c = e.target.closest("[data-custom]"); if (c){ openCustomise(c.getAttribute("data-custom")); return; }
   var i = e.target.closest("[data-inc]"); if (i){ chg(i.getAttribute("data-inc"), 1); return; }
   var d = e.target.closest("[data-dec]"); if (d){ chg(d.getAttribute("data-dec"), -1); return; }
 });
@@ -478,14 +537,17 @@ function recoItems(){
     if (recoTab === "Beverages") return BEV_CATS.indexOf(it.cat) !== -1;
     return it.cat === "Dessert";
   });
-  return pool.filter(function(it){ return !cart[it.name]; });
+  return pool.filter(function(it){ return !inCart(it.name); });
 }
 function recoCardHTML(it){
+  var btn = addonsFor(it).length
+    ? '<button class="addbtn" data-custom="' + esc(it.name) + '">ADD +</button>'
+    : '<button class="addbtn" data-add="' + esc(it.name) + '">ADD +</button>';
   return '<div class="recocard">' + photoHTML(it) +
     '<span class="mark ' + (it.veg ? "veg" : "nonveg") + '" title="' + (it.veg ? "Veg" : "Non-veg") + '"></span>' +
     '<div class="nm">' + esc(it.name) + '</div>' +
     '<div class="pr">\u20b9' + it.price + '</div>' +
-    '<button class="addbtn" data-add="' + esc(it.name) + '">ADD +</button></div>';
+    btn + '</div>';
 }
 function renderRecos(){
   var strip = document.getElementById("recostrip");
@@ -514,13 +576,23 @@ function renderCart(){
   document.getElementById("recos").style.display = "block"; renderRecos();
   linesEl.innerHTML = keys.map(function(k){
     var c = cart[k];
-    return '<div class="cline"><div class="nm">' + esc(k) + '<small>₹' + c.price + ' each</small></div>' +
+    var unit = lineUnit(c);
+    var base = k.split(" | ")[0];
+    var addonLine = (c.addons && c.addons.length)
+      ? '<small>+' + c.addons.map(function(o){ return o.name + " \u20b9" + o.price; }).join(", ") + '</small>' : "";
+    return '<div class="cline"><div class="nm">' + esc(base) + '<small>\u20b9' + unit + ' each</small>' + addonLine + '</div>' +
       '<div class="mini-step"><button data-dec="' + esc(k) + '" aria-label="Remove one">−</button><span>' + c.qty + '</span><button data-inc="' + esc(k) + '" aria-label="Add one">+</button></div>' +
-      '<div class="amt">₹' + (c.qty * c.price) + '</div></div>';
+      '<div class="amt">₹' + (c.qty * unit) + '</div></div>';
   }).join("");
   document.getElementById("carttotal").textContent = "₹" + tot.t;
   var msg = "Hi THE GHRITAM CAFE! My order:\n" +
-    keys.map(function(k){ return cart[k].qty + " x " + k + " — ₹" + (cart[k].qty * cart[k].price); }).join("\n") +
+    keys.map(function(k){
+      var c = cart[k];
+      var base = k.split(" | ")[0];
+      var s = c.qty + " x " + base;
+      if (c.addons && c.addons.length) s += " (+" + c.addons.map(function(o){ return o.name; }).join(", ") + ")";
+      return s + " — ₹" + (c.qty * lineUnit(c));
+    }).join("\n") +
     "\nTotal: ₹" + tot.t + "\nPlease confirm my order.";
   document.getElementById("wabtn").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
 }
@@ -534,6 +606,58 @@ function closeCart(){
   document.getElementById("cartview").style.display = "none";
   document.body.style.overflow = "";
 }
+
+/* ---------- Customise sheet (add-ons) ---------- */
+var custItem = null;
+function openCustomise(name){
+  var it = findItem(name); if(!it) return;
+  custItem = it;
+  document.getElementById("custname").textContent = it.name;
+  document.getElementById("custbase").textContent = "\u20b9" + it.price + " \u00b7 choose your add-ons";
+  var opts = addonsFor(it);
+  document.getElementById("custopts").innerHTML = opts.map(function(o, i){
+    return '<label class="custopt"><input type="checkbox" data-i="' + i + '"><span>' + esc(o.name) + '</span><span class="pr">+ \u20b9' + o.price + '</span></label>';
+  }).join("");
+  updateCustTotal();
+  document.getElementById("customise").style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function custSelected(){
+  var opts = addonsFor(custItem); var sel = [];
+  Array.prototype.forEach.call(document.querySelectorAll("#custopts input:checked"), function(cb){
+    sel.push(opts[+cb.getAttribute("data-i")]);
+  });
+  return sel;
+}
+function updateCustTotal(){
+  var sel = custSelected();
+  var t = custItem.price + sel.reduce(function(s, o){ return s + o.price; }, 0);
+  document.getElementById("custtotal").textContent = "\u20b9" + t;
+}
+function closeCustomise(){
+  document.getElementById("customise").style.display = "none";
+  document.body.style.overflow = "";
+}
+document.getElementById("custopts").addEventListener("change", updateCustTotal);
+document.getElementById("custclose").addEventListener("click", closeCustomise);
+document.getElementById("customise").addEventListener("click", function(e){ if(e.target === this) closeCustomise(); });
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && document.getElementById("customise").style.display === "flex") closeCustomise();
+});
+document.getElementById("custadd").addEventListener("click", function(){
+  var it = custItem; var sel = custSelected();
+  var key = it.name;
+  var addonTotal = 0;
+  if (sel.length){
+    key += " | " + sel.map(function(o){ return o.name; }).join(", ");
+    addonTotal = sel.reduce(function(s, o){ return s + o.price; }, 0);
+  }
+  if (cart[key]) cart[key].qty += 1;
+  else cart[key] = {price: it.price, qty: 1, addons: sel, addonTotal: addonTotal};
+  closeCustomise();
+  renderMenu(); renderBar();
+  if (document.getElementById("cartview").style.display === "block") renderCart();
+});
 document.getElementById("viewcart").addEventListener("click", openCart);
 document.getElementById("closebtn").addEventListener("click", closeCart);
 document.addEventListener("keydown", function(e){
