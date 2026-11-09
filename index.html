@@ -54,6 +54,7 @@
   .dish-body { padding: 14px 16px 16px; } .dish-body h3 { margin: 0 0 4px; font-size: 16px; }
   .dish-body p { margin: 0 0 8px; opacity: .75; font-size: 14px; line-height: 1.5; } .dish-body .price { font-weight: 700; color: #A67C1F; }
   .dish-photo-note { background: #F3E9D2; padding: 12px 14px; font-size: 13px; line-height: 1.5; }
+  .dish-photo { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
   .strip { background: #F3E9D2; border-top: 1px solid #E4D3A4; border-bottom: 1px solid #E4D3A4; }
   .strip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; margin: 0 auto; padding: 22px 20px; }
   @media (min-width: 640px) { .strip-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -167,9 +168,9 @@
     <h2 class="noorn" style="text-align:left;">Today&rsquo;s Special &#11088;</h2>
     <p class="sub" style="text-align:left;">Handpicked favourites, just for today. <a href="menu.html">See All Specials &rarr;</a></p>
     <div class="grid3">
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Creamy Cheese Pasta</h3><p>Rich, creamy and irresistibly delicious.</p><span class="price">&#8377;150</span></div><div class="dish-photo-note">Dish photo needed — send a photo of this pasta and it goes here.</div></a>
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Spicy Chicken Loaded Fries</h3><p>A perfect blend of spice and flavour.</p><span class="price">&#8377;180</span></div><div class="dish-photo-note">Dish photo needed — send a photo of these fries and it goes here.</div></a>
-      <a class="dish" href="menu.html"><div class="dish-body"><h3>Nutella Hazelnut Shake</h3><p>A chocolatey treat for every mood.</p><span class="price">&#8377;160</span></div><div class="dish-photo-note">Dish photo needed — send a photo of this shake and it goes here.</div></a>
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Creamy Cheese Pasta</h3><p>Rich, creamy and irresistibly delicious.</p><span class="price">&#8377;150</span></div><img class="dish-photo" src="Photos/dishes/creamy-cheese-pasta.webp" alt="Creamy Cheese Pasta" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Spicy Chicken Loaded Fries</h3><p>A perfect blend of spice and flavour.</p><span class="price">&#8377;180</span></div><img class="dish-photo" src="Photos/dishes/spicy-chicken-loaded-fries.webp" alt="Spicy Chicken Loaded Fries" loading="lazy" onerror="this.style.display='none'"></a>
+      <a class="dish" href="menu.html"><div class="dish-body"><h3>Nutella Hazelnut Shake</h3><p>A chocolatey treat for every mood.</p><span class="price">&#8377;160</span></div><img class="dish-photo" src="Photos/dishes/nutella-hazelnut-shake.webp" alt="Nutella Hazelnut Shake" loading="lazy" onerror="this.style.display='none'"></a>
     </div>
   </section>
 
@@ -227,7 +228,7 @@
     <div class="copyright"><span>&copy; 2026 Ghritam Caf&eacute; &amp; Restro. All Rights Reserved.</span><span>Good Food &bull; Great Coffee &bull; Better Moments</span><span>Built with care by <a href="https://www.linkedin.com/in/kumar51" target="_blank" rel="noopener" aria-label="Kumar Prasanjeet on LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px;margin-right:4px;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>Kumar Prasanjeet</a></span></div>
   </footer>
 
-  <p class="note">Live homepage (v4, animated). Page 1 — all introduction, address, directions, phone, and Instagram details live here. Page 2 (menu.html) is a separate clean file with no repeated intro or footer. Today&rsquo;s Special prices checked against the live menu: Creamy Cheese Pasta &#8377;150, Spicy Chicken Loaded Fries &#8377;180, Nutella Hazelnut Shake &#8377;160. The three Today&rsquo;s Special dish photos are deliberately left as notes, not filled with other dishes&rsquo; photos — send those three photos and they will replace the notes. Logo lockup is recreated in text for crispness; the exact logo also appears in the hero storefront photo itself. If you have a clean logo PNG, send it and I will swap it in exactly.</p>
+  <p class="note">Live homepage (v4, animated). Page 1 — all introduction, address, directions, phone, and Instagram details live here. Page 2 (menu.html) is a separate clean file with no repeated intro or footer. Today&rsquo;s Special prices checked against the live menu: Creamy Cheese Pasta &#8377;150, Spicy Chicken Loaded Fries &#8377;180, Nutella Hazelnut Shake &#8377;160. The three Today&rsquo;s Special cards now show the dish photos from Photos/dishes/ — if the Google Sheet ever changes a special, the photo follows the new dish name automatically. Logo lockup is recreated in text for crispness; the exact logo also appears in the hero storefront photo itself. If you have a clean logo PNG, send it and I will swap it in exactly.</p>
 
 <!-- BOOK A TABLE modal: name/date/time/guests/request -> prefilled WhatsApp. Table confirmed only on cafe reply. -->
 <div id="booktable" role="dialog" aria-modal="true" aria-label="Book a table">
@@ -386,6 +387,7 @@
    Until a sheet ID is set (or if the sheet ever fails to load), the page keeps
    showing the hardcoded specials below. The site never breaks. */
 var SPECIALS_SHEET_ID = "";
+function dishSlug(n){ return n.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""); }
 (function(){
   if(!SPECIALS_SHEET_ID) return;
   var url = "https://docs.google.com/spreadsheets/d/" + SPECIALS_SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Specials";
@@ -410,6 +412,8 @@ var SPECIALS_SHEET_ID = "";
       if(!cards[i]) return;
       var h3=cards[i].querySelector('h3'), p=cards[i].querySelector('p'), pr=cards[i].querySelector('.price');
       if(h3 && r[0]) h3.textContent=r[0].trim();
+      var img=cards[i].querySelector('.dish-photo');
+      if(img && r[0]){ img.src="Photos/dishes/"+dishSlug(r[0])+".webp"; img.alt=r[0].trim(); img.style.display=""; }
       if(pr && r[1]) pr.textContent="\u20B9"+r[1].trim().replace(/^\u20B9/,"");
       if(p && r[2]) p.textContent=r[2].trim();
     });
