@@ -632,6 +632,27 @@ document.addEventListener("click", function(e){
 
 var recoTab = "Popular";
 var BEV_CATS = ["Thick Shake","Frappe","Bold Series","Chilled Caffeine","Mocktail","Chilled Tea House"];
+var lastRecoOrder = "";
+function cartKinds(){
+  var kinds = {food:false, bev:false, dessert:false};
+  Object.keys(cart).forEach(function(k){
+    var name = k.split(" | ")[0];
+    var it = null;
+    for (var i = 0; i < ITEMS.length; i++){ if (ITEMS[i].name === name){ it = ITEMS[i]; break; } }
+    if (!it) return;
+    if (it.cat === "Dessert") kinds.dessert = true;
+    else if (BEV_CATS.indexOf(it.cat) !== -1) kinds.bev = true;
+    else kinds.food = true;
+  });
+  return kinds;
+}
+function recoOrder(){
+  var k = cartKinds();
+  if (k.food && !k.bev) return ["Beverages","Desserts","Popular"];
+  if (k.bev && !k.food) return ["Popular","Desserts","Beverages"];
+  if (k.food && k.bev) return ["Desserts","Popular","Beverages"];
+  return ["Popular","Beverages","Desserts"];
+}
 function recoItems(){
   var pool = ITEMS.filter(function(it){
     if (recoTab === "Popular") return it.best;
@@ -651,6 +672,13 @@ function recoCardHTML(it){
     btn + '</div>';
 }
 function renderRecos(){
+  var order = recoOrder();
+  var key = order.join("|");
+  if (key !== lastRecoOrder){ lastRecoOrder = key; recoTab = order[0]; }
+  var tabsEl = document.getElementById("recotabs");
+  Array.prototype.slice.call(tabsEl.querySelectorAll(".recotab")).sort(function(a,b){
+    return order.indexOf(a.getAttribute("data-reco")) - order.indexOf(b.getAttribute("data-reco"));
+  }).forEach(function(b){ tabsEl.appendChild(b); });
   var strip = document.getElementById("recostrip");
   var items = recoItems();
   Array.prototype.forEach.call(document.querySelectorAll("#recotabs .recotab"), function(b){
